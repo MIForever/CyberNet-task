@@ -1,0 +1,68 @@
+version: "3.1"
+
+stories:
+  - story: Provide INN and ask for confirmation
+    steps:
+      - intent: provide_full_inn
+      - action: utter_confirm_full_inn
+      - checkpoint: ask_full_inn_confirmation
+
+  - story: User confirms full INN
+    steps:
+      - checkpoint: ask_full_inn_confirmation
+      - intent: affirm
+      - action: action_inn_verification
+      - action: utter_goodbye
+
+  - story: User denies full INN, ask for first part
+    steps:
+      - checkpoint: ask_full_inn_confirmation
+      - intent: deny
+      - action: utter_confirm_first_part
+      - checkpoint: ask_first_part_confirmation
+
+  - story: User confirms first part, asks second part
+    steps:
+      - checkpoint: ask_first_part_confirmation
+      - intent: affirm
+      - action: utter_ask_inn_second_part
+      - checkpoint: ask_second_part_confirmation
+
+  - story: User denies first part and tells the first part
+    steps:
+      - checkpoint: ask_first_part_confirmation
+      - intent: deny
+      - action: utter_ask_inn_first_part
+      - intent: provide_inn_first_part
+      - action: utter_confirm_first_part
+      - checkpoint: ask_first_part_confirmation
+
+  - story: User denies first part and retries
+    steps:
+      - checkpoint: ask_first_part_confirmation
+      - intent: provide_inn_first_part
+      - action: utter_ask_inn_first_part
+      - checkpoint: ask_first_part_confirmation
+
+  - story: User confirms second part, verify INN
+    steps:
+      - checkpoint: ask_second_part_confirmation
+      - intent: affirm
+      - action: action_inn_verification
+      - action: utter_goodbye
+
+  - story: User denies second part and retries
+    steps:
+      - checkpoint: ask_second_part_confirmation
+      - intent: deny
+      - action: utter_ask_inn_second_part
+      - intent: provide_inn_second_part
+      - action: utter_confirm_second_part
+      - checkpoint: ask_second_part_confirmation
+
+  - story: Exceed retry limit
+    steps:
+      - checkpoint: ask_second_part_confirmation
+      - intent: deny
+      - action: utter_incorrect_inn
+      - action: utter_restart

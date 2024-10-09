@@ -1,0 +1,36 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-full_inn",
+      "2": "I-full_inn",
+      "3": "L-full_inn",
+      "4": "U-full_inn",
+      "5": "B-inn_first_part",
+      "6": "I-inn_first_part",
+      "7": "L-inn_first_part",
+      "8": "U-inn_first_part",
+      "9": "B-inn_second_part",
+      "10": "I-inn_second_part",
+      "11": "L-inn_second_part",
+      "12": "U-inn_second_part",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-full_inn": 1,
+      "I-full_inn": 2,
+      "L-full_inn": 3,
+      "U-full_inn": 4,
+      "B-inn_first_part": 5,
+      "I-inn_first_part": 6,
+      "L-inn_first_part": 7,
+      "U-inn_first_part": 8,
+      "B-inn_second_part": 9,
+      "I-inn_second_part": 10,
+      "L-inn_second_part": 11,
+      "U-inn_second_part": 12,
+      "O": 0
+    },
+    "num_tags": 13
+  }
+]

@@ -1,0 +1,65 @@
+[
+  {
+    "text": "12-34-56",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "12-34-56",
+        "entity": "inn_second_part"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "inn_first_part",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.6328952312469482,
+        "value": "12-34-56",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "12 34 56",
+    "entities": [
+      {
+        "start": 0,
+        "end": 8,
+        "value": "12 34 56",
+        "entity": "inn_second_part"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "inn_first_part",
+        "start": 0,
+        "end": 8,
+        "confidence_entity": 0.45291566848754883,
+        "value": "12 34 56",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  },
+  {
+    "text": "123456",
+    "entities": [
+      {
+        "start": 0,
+        "end": 6,
+        "value": "123456",
+        "entity": "inn_second_part"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "inn_first_part",
+        "start": 0,
+        "end": 6,
+        "confidence_entity": 0.6866305470466614,
+        "value": "123456",
+        "extractor": "DIETClassifier"
+      }
+    ]
+  }
+]

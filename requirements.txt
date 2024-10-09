@@ -1,0 +1,6 @@
+# Python 3.9.0
+ujson==5.10.0
+tensorflow==2.8.4
+rasa==3.4.0
+rasa-sdk==3.4.1
+cryptography==3.4.8
