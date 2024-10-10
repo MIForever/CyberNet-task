@@ -41,36 +41,36 @@ nlu:
 
 
 # Main functionality
-- intent: provide_full_inn
+- intent: provide_full_iin
   examples: |
-    - Мой ИНН [1234 5678 9012](full_inn)
-    - Хочу указать мой ИНН, это [987 654 321 234](full_inn)
-    - ИНН номер [564738291047](full_inn)
-    - Вот мой ИНН: [345 672 890 123](full_inn)
-    - Мой ИНН [6789 0543 2123](full_inn)
-    - [432109876543](full_inn) это мой ИНН
+    - Мой ИИН [1234 5678 9012](full_iin)
+    - Хочу указать мой ИИН, это [987 654 321 234](full_iin)
+    - ИИН номер [564738291047](full_iin)
+    - Вот мой ИИН: [345 672 890 123](full_iin)
+    - Мой ИИН [6789 0543 2123](full_iin)
+    - [432109876543](full_iin) это мой ИИН
   
-- intent: provide_inn_first_part
+- intent: provide_iin_first_part
   examples: |
-    - Первые 6 цифр [123456](inn_first_part)
-    - Начальные 6 цифр ИНН: [654321](inn_first_part)
-    - Первая часть ИНН: [987654](inn_first_part)
-    - Вот первые 6 цифр: [123456](inn_first_part)
-    - Первые шесть цифр моего ИНН: [123456](inn_first_part)
-    - [12-34-56](inn_first_part)
-    - [12 34 56](inn_first_part)
-    - [123456](inn_first_part)
+    - Первые 6 цифр [12-34-56](iin_first_part)
+    - Начальные 6 цифр ИИН: [65 43 21](iin_first_part)
+    - Первая часть ИИН: [98-76-54](iin_first_part)
+    - Вот первые 6 цифр: [12 34 56](iin_first_part)
+    - Первые шесть цифр моего ИИН: [12-34-56](iin_first_part)
+    - [12-34-56](iin_second_part)
+    - [12 34 56](iin_second_part)
+    - [123456](iin_second_part)
 
-- intent: provide_inn_second_part
+- intent: provide_iin_second_part
   examples: |
-    - Последние 6 цифр [789012](inn_second_part)
-    - Заключительная часть ИНН: [234567](inn_second_part)
-    - Конец ИНН [345678](inn_second_part)
-    - Вот последние 6 цифр: [987654](inn_second_part)
-    - Мой ИНН заканчивается на [678901](inn_second_part)
-    - [12-34-56](inn_second_part)
-    - [12 34 56](inn_second_part)
-    - [123456](inn_second_part)
+    - Последние 6 цифр [78-90-12](iin_second_part)
+    - Заключительная часть ИИН: [23 45 67](iin_second_part)
+    - Конец ИИН [34 56 78](iin_second_part)
+    - Вот последние 6 цифр: [98 76 54](iin_second_part)
+    - Мой ИИН заканчивается на [67-89-01](iin_second_part)
+    - [12-34-56](iin_second_part)
+    - [12 34 56](iin_second_part)
+    - [123456](iin_second_part)
 
 
 - intent: affirm
@@ -89,5 +89,5 @@ nlu:
     - Неправильно
     - Это не так
     - Не так
-    - Нет, это не мой ИНН
+    - Нет, это не мой ИИН
     - Нет, ошибка

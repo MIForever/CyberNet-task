@@ -1,5 +1,5 @@
 {
-  "provide_full_inn": {
+  "provide_full_iin": {
     "precision": 1.0,
     "recall": 1.0,
     "f1-score": 1.0,
@@ -27,22 +27,22 @@
     "support": 10,
     "confused_with": {}
   },
-  "provide_inn_first_part": {
+  "provide_iin_first_part": {
     "precision": 0.8571428571428571,
     "recall": 0.75,
     "f1-score": 0.7999999999999999,
     "support": 8,
     "confused_with": {
-      "provide_inn_second_part": 2
+      "provide_iin_second_part": 2
     }
   },
-  "provide_inn_second_part": {
+  "provide_iin_second_part": {
     "precision": 0.7777777777777778,
     "recall": 0.875,
     "f1-score": 0.823529411764706,
     "support": 8,
     "confused_with": {
-      "provide_inn_first_part": 1
+      "provide_iin_first_part": 1
     }
   },
   "greet": {

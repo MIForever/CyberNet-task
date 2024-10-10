@@ -9,57 +9,73 @@
 
 # from typing import Any, Text, Dict, List
 #
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
-
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 
-from rasa_sdk import Action, Tracker
-from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
+def iin_cleaner(iin):
+    iin = ''.join(iin.split())
+    iin = ''.join(iin.split('-'))
+    return iin
 
-class ActionInnVerification(Action):
+def iin_formatter(iin): # "123456789012" => "123 456 789 012"
+    result = ''
+    for i, l in enumerate(iin):
+        result+=l
+        if (i+1)%3==0:
+            result+=' '
+
+    return result.lstrip()
+
+
+class ActionGetFirstIINPart(Action):
 
     def name(self) -> str:
-        return "action_inn_verification"
+        return "action_get_iin_first_part"
 
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict):
-        full_inn = tracker.get_slot("full_inn")
-        inn_first_part = tracker.get_slot("inn_first_part")
-        inn_second_part = tracker.get_slot("inn_second_part")
+        full_iin = iin_cleaner(tracker.get_slot("full_iin"))
+
+        first_6_digits = iin_cleaner(full_iin)[0:6]
+
+        dispatcher.utter_message(text=f"Хорошо, первые 6 цифр {first_6_digits}, верно?")
+        return [SlotSet("iin_first_part", first_6_digits)]
+
+class ActionGetSecondiinPart(Action):
+
+    def name(self) -> str:
+        return "action_get_iin_second_part"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict):
+        full_iin = iin_cleaner(tracker.get_slot("full_iin"))
+
+        last_6_digits = iin_cleaner(full_iin)[6:]
+
+        dispatcher.utter_message(text=f"Остальные 6 цифр верны? {last_6_digits[0:3]+' '+last_6_digits[3:]}")
+        return [SlotSet("iin_second_part", last_6_digits)]
+
+
+class ActionTrialsIncreaser(Action):
+
+    def name(self) -> str:
+        return "action_trials_increaser"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict):
         attempts = tracker.get_slot("attempts")
+        return [SlotSet("attempts", attempts+1)]
 
-        print(full_inn)
 
-        if full_inn:
-            dispatcher.utter_message(text=f"Ваш ИНН {full_inn} подтвержден. До свидания!")
-            return [SlotSet("full_inn", full_inn), SlotSet("attempts", 0)]
-        
-        if inn_first_part and inn_second_part:
-            full_inn = inn_first_part + inn_second_part
-            dispatcher.utter_message(text=f"Ваш ИНН {full_inn} подтвержден. До свидания!")
-            return [SlotSet("full_inn", full_inn), SlotSet("attempts", 0)]
+class ActionAskResultIIN(Action):
 
-        if attempts >= 3:
-            dispatcher.utter_message(text="Вы превысили количество попыток. Попробуйте заново.")
-            return [SlotSet("attempts", 0)] 
+    def name(self) -> str:
+        return "action_ask_result_iin"
 
-        dispatcher.utter_message(text="Попробуйте еще раз.")
-        return [SlotSet("attempts", attempts + 1)]
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict):
+        iin_first_part = tracker.get_slot("iin_first_part")
+        iin_second_part = tracker.get_slot("iin_second_part")
+
+        full_iin = iin_cleaner(iin_first_part + iin_second_part)
+
+        dispatcher.utter_message(text=f"Хорошо, первые 6 цифр {iin_formatter(full_iin)}, верно?")
+        return [SlotSet("full_iin", full_iin)]

@@ -1,68 +1,71 @@
 version: "3.1"
 
 stories:
-  - story: Provide INN and ask for confirmation
+  - story: Provide IIN and ask for confirmation
     steps:
-      - intent: provide_full_inn
-      - action: utter_confirm_full_inn
-      - checkpoint: ask_full_inn_confirmation
+      - intent: provide_full_iin
+      - action: utter_confirm_full_iin
+      - checkpoint: ask_full_iin_confirmation
 
-  - story: User confirms full INN
+  - story: User confirms full IIN
     steps:
-      - checkpoint: ask_full_inn_confirmation
+      - checkpoint: ask_full_iin_confirmation
       - intent: affirm
-      - action: action_inn_verification
       - action: utter_goodbye
 
-  - story: User denies full INN, ask for first part
+  - story: User denies full IIN, ask for first part
     steps:
-      - checkpoint: ask_full_inn_confirmation
+      - checkpoint: ask_full_iin_confirmation
       - intent: deny
-      - action: utter_confirm_first_part
-      - checkpoint: ask_first_part_confirmation
+      - action: action_get_iin_first_part
+      - slot_was_set:
+          - attempts: 0
+      - checkpoint: ask_first_part_confirmation_deny
 
-  - story: User confirms first part, asks second part
+  - story: User confirms first part, asks for second part
     steps:
-      - checkpoint: ask_first_part_confirmation
+      - checkpoint: ask_first_part_confirmation_deny
       - intent: affirm
-      - action: utter_ask_inn_second_part
+      - action: action_get_iin_second_part
+      - slot_was_set:
+          - attempts: 0
+      - slot_was_set:
+          - iin_flow_stage: "second_part"
       - checkpoint: ask_second_part_confirmation
 
-  - story: User denies first part and tells the first part
+  - story: User denies first part and retries first part
     steps:
-      - checkpoint: ask_first_part_confirmation
+      - checkpoint: ask_first_part_confirmation_deny
       - intent: deny
-      - action: utter_ask_inn_first_part
-      - intent: provide_inn_first_part
+      - action: action_trials_increaser
+      - action: utter_ask_iin_first_part
+      - intent: provide_iin_first_part
+      - slot_was_set:
+          - iin_flow_stage: "first_part"
       - action: utter_confirm_first_part
-      - checkpoint: ask_first_part_confirmation
+      - checkpoint: ask_first_part_confirmation_deny
 
-  - story: User denies first part and retries
-    steps:
-      - checkpoint: ask_first_part_confirmation
-      - intent: provide_inn_first_part
-      - action: utter_ask_inn_first_part
-      - checkpoint: ask_first_part_confirmation
-
-  - story: User confirms second part, verify INN
+  - story: User confirms second part, verify IIN
     steps:
       - checkpoint: ask_second_part_confirmation
       - intent: affirm
-      - action: action_inn_verification
-      - action: utter_goodbye
+      - action: action_ask_result_iin
+      - checkpoint: ask_full_iin_confirmation
 
-  - story: User denies second part and retries
+  - story: User denies second part and retries second part
     steps:
       - checkpoint: ask_second_part_confirmation
       - intent: deny
-      - action: utter_ask_inn_second_part
-      - intent: provide_inn_second_part
+      - action: action_trials_increaser
+      - action: utter_ask_iin_second_part
+      - intent: provide_iin_second_part
+      - slot_was_set:
+          - iin_flow_stage: "second_part"
       - action: utter_confirm_second_part
       - checkpoint: ask_second_part_confirmation
 
-  - story: Exceed retry limit
+  - story: Handle too many attempts and break the loop
     steps:
-      - checkpoint: ask_second_part_confirmation
-      - intent: deny
-      - action: utter_incorrect_inn
+      - slot_was_set:
+          - attempts: 3
       - action: utter_restart

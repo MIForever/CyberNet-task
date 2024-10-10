@@ -2,75 +2,81 @@ version: "3.1"
 
 intents:
   - greet
-  - provide_full_inn
-  - provide_inn_first_part
-  - provide_inn_second_part
+  - provide_full_iin
+  - provide_iin_first_part
+  - provide_iin_second_part
   - affirm
   - deny
 
 entities:
-  - inn_first_part
-  - inn_second_part
-  - full_inn
+  - iin_first_part
+  - iin_second_part
+  - full_iin
 
 slots:
-  inn_first_part:
+  iin_flow_stage:
     type: text
+    influence_conversation: false
     mappings:
-      - type: from_entity
-        entity: inn_first_part
+      - type: from_text
 
-  inn_second_part:
+  iin_first_part:
     type: text
     mappings:
       - type: from_entity
-        entity: inn_second_part
+        entity: iin_first_part
 
-  full_inn:
+  iin_second_part:
     type: text
     mappings:
       - type: from_entity
-        entity: full_inn
+        entity: iin_second_part
+
+  full_iin:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: full_iin
 
   attempts:
     type: float
-    initial_value: 0
     mappings:
-      - type: from_intent
-        intent: provide_full_inn
-        value: 0
+      - type: from_text
 
 responses:
   utter_greeting:
     - text: "Здравствуйте! Как могу помочь вам сегодня?"
     - text: "Добрый день! Чем могу быть полезен?"
 
-  utter_confirm_full_inn:
-    - text: "Вы ввели ИНН {full_inn}, верно?"
+  utter_confirm_full_iin:
+    - text: "Ваш ИИН {full_iin}, верно?"
     
   utter_confirm_first_part:
-    - text: "Хорошо, первые 6 цифр {inn_first_part}, верно?"
+    - text: "Хорошо, первые 6 цифр {iin_first_part}, верно?"
 
   utter_confirm_second_part:
-    - text: "Остальные 6 цифр верны? {inn_second_part}"
+    - text: "Остальные 6 цифр верны? {iin_second_part}"
   
-  utter_ask_inn_first_part:
-    - text: "Пожалуйста, продиктуйте первые 6 цифр вашего ИНН."
+  utter_ask_iin_first_part:
+    - text: "Пожалуйста, продиктуйте первые 6 цифр вашего ИИН."
 
-  utter_ask_inn_second_part:
-    - text: "Теперь скажите последние 6 цифр вашего ИНН."
+  utter_ask_iin_second_part:
+    - text: "Теперь скажите последние 6 цифр вашего ИИН."
 
-  utter_incorrect_inn:
-    - text: "Извините, введенный ИНН неверен. Попробуйте еще раз."
+  utter_incorrect_iin:
+    - text: "Извините, введенный ИИН неверен. Попробуйте еще раз."
     
   utter_restart:
-    - text: "Слишком много ошибок. Начнём заново. Пожалуйста, введите свой ИНН ещё раз."
+    - text: "Слишком много ошибок. Начнём заново. Пожалуйста, введите свой ИИН ещё раз."
 
   utter_goodbye:
-    - text: "Ваш ИНН успешно подтвержден. Всего доброго!"
+    - text: "Ваш ИИН успешно подтвержден. Всего доброго!"
 
 actions:
-  - action_inn_verification
+  - action_get_iin_first_part
+  - action_get_iin_second_part
+  - action_trials_increaser
+  - action_ask_result_iin
 
 session_config:
   session_expiration_time: 60

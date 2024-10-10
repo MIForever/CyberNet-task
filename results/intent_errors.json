@@ -1,25 +1,25 @@
 [
   {
     "text": "12-34-56",
-    "intent": "provide_inn_first_part",
+    "intent": "provide_iin_first_part",
     "intent_prediction": {
-      "name": "provide_inn_second_part",
+      "name": "provide_iin_second_part",
       "confidence": 0.5231755375862122
     }
   },
   {
     "text": "123456",
-    "intent": "provide_inn_first_part",
+    "intent": "provide_iin_first_part",
     "intent_prediction": {
-      "name": "provide_inn_second_part",
+      "name": "provide_iin_second_part",
       "confidence": 0.5555084347724915
     }
   },
   {
     "text": "12 34 56",
-    "intent": "provide_inn_second_part",
+    "intent": "provide_iin_second_part",
     "intent_prediction": {
-      "name": "provide_inn_first_part",
+      "name": "provide_iin_first_part",
       "confidence": 0.49289941787719727
     }
   }
