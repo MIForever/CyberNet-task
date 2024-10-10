@@ -14,12 +14,6 @@ entities:
   - full_iin
 
 slots:
-  iin_flow_stage:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: from_text
-
   iin_first_part:
     type: text
     mappings:
